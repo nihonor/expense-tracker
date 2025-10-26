@@ -1,9 +1,25 @@
-import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-import { LinearGradient } from 'expo-linear-gradient'
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const getCategoryColor = (category: string) => {
+  const colors: { [key: string]: string } = {
+    'Food': '#FF6B6B',
+    'Transport': '#4E7FFF',
+    'Bills': '#10B981',
+    'Shopping': '#FFA500',
+  };
+  return colors[category] || '#9CA3AF';
+};
 
 const HomePage = () => {
+  const recentExpenses = [
+    { id: '1', title: 'Grocery', category: 'Food', amount: 85.20, time: '10:30 AM', icon: '🍔' },
+    { id: '2', title: 'Taxi', category: 'Transport', amount: 24.50, time: '09:15 AM', icon: '🚕' },
+    { id: '3', title: 'Electric Bill', category: 'Bills', amount: 120.75, time: 'Yesterday', icon: '💡' },
+    { id: '4', title: 'Shopping', category: 'Shopping', amount: 65.90, time: 'Yesterday', icon: '🛍️' },
+  ]
   const categoryData = [
     { name: 'Food', amount: 1150, percentage: 40, color: '#FF6B6B' },
     { name: 'Transport', amount: 680, percentage: 24, color: '#4E7FFF' },
@@ -99,6 +115,41 @@ const HomePage = () => {
           </View>
         </View>
       </View>
+
+      {/* Recent Transactions */}
+      <View style={styles.transactionsContainer}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Recent Transactions</Text>
+          <TouchableOpacity>
+            <Text style={styles.seeAllText}>See All</Text>
+          </TouchableOpacity>
+        </View>
+
+        {recentExpenses.map((expense) => (
+          <View key={expense.id} style={styles.transactionCard}>
+            <View style={[styles.transactionIcon, { backgroundColor: getCategoryColor(expense.category) }]}>
+              <Text style={styles.emojiIcon}>{expense.icon}</Text>
+            </View>
+            <View style={styles.transactionInfo}>
+              <Text style={styles.transactionTitle}>{expense.title}</Text>
+              <Text style={styles.transactionCategory}>{expense.category} • {expense.time}</Text>
+            </View>
+            <Text style={styles.transactionAmount}>-${expense.amount.toFixed(2)}</Text>
+          </View>
+        ))}
+      </View>
+      <View style={styles.analyticsCard}>
+        <View style={styles.analyticsPercentage}>
+          <Text style={styles.analyticsHeader}>81.3%</Text>
+          <Text style={styles.analyticsEmoji}>Used</Text>
+          <Text style={styles.analyticsPercent}>9 days left</Text>
+        </View>
+        <View style={styles.analyticsPercentage}>
+           <Text style={styles.analyticsHeader}>81.3%</Text>
+          <Text style={styles.analyticsEmoji}>Used</Text>
+          <Text style={styles.analyticsPercent}>9 days left</Text>
+        </View>
+      </View>
     </ScrollView>
   )
 }
@@ -107,6 +158,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F9FAFB',
+    paddingBottom: 100,
   },
   header: {
     flexDirection: 'row',
@@ -117,11 +169,11 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 24,
-    fontWeight: '600',
-    color: '#1F2937',
+    fontWeight: '400',
+    color: '#000000',
   },
   name: {
-    fontWeight: '700',
+    fontWeight: '400',
   },
   subtitle: {
     fontSize: 14,
@@ -129,13 +181,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   addButton: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#5B7FFF',
+    width: 45,
+    height: 45,
+    borderRadius: 10,
+    backgroundColor: '#0e0eebff',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#5B7FFF',
+    shadowColor: '#0707b6',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -213,8 +265,96 @@ const styles = StyleSheet.create({
     fontSize: 13,
     opacity: 0.9,
   },
+  transactionsContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 6,
+    padding: 20,
+    paddingTop: 30,
+    marginTop: 10,
+    margin: 20,
+    flex: 1,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1F2937',
+  },
+  seeAllText: {
+    color: '#4E7FFF',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  transactionCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F3F4F6',
+  },
+  transactionIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 15,
+    backgroundColor: '#EFF4FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  emojiIcon: {
+    fontSize: 20,
+  },
+  transactionInfo: {
+    flex: 1,
+  },
+  transactionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1F2937',
+    marginBottom: 3,
+  },
+  transactionCategory: {
+    fontSize: 13,
+    color: '#9CA3AF',
+  },
+  transactionAmount: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1F2937',
+  },
+  addTransactionButton: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#4E7FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#4E7FFF',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.4,
+    shadowRadius: 15,
+    elevation: 10,
+  },
   categoryCard: {
     backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 6,
     marginHorizontal: 20,
     borderRadius: 20,
     padding: 20,
@@ -294,6 +434,32 @@ const styles = StyleSheet.create({
     color: '#9CA3AF',
     marginTop: 2,
   },
+  analyticsCard: {
+    flexDirection: 'row',
+    justifyContent:'center',
+    gap:60,
+    alignItems: 'center',
+    marginHorizontal: 20,
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 20,
+  },
+  analyticsPercentage: {
+    backgroundColor:"white",
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 6,
+    borderRadius:10,  
+    padding:20,
+    paddingHorizontal:40,
+    alignItems:'center',
+    justifyContent:'center'
+  }
+    
+  
+  
 })
 
 export default HomePage

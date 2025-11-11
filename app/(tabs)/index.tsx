@@ -1,44 +1,82 @@
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const getCategoryColor = (category: string) => {
   const colors: { [key: string]: string } = {
-    'Food': '#FF6B6B',
-    'Transport': '#4E7FFF',
-    'Bills': '#10B981',
-    'Shopping': '#FFA500',
+    Food: "#FF6B6B",
+    Transport: "#4E7FFF",
+    Bills: "#10B981",
+    Shopping: "#FFA500",
   };
-  return colors[category] || '#9CA3AF';
+  return colors[category] || "#9CA3AF";
 };
 
 const HomePage = () => {
   const recentExpenses = [
-    { id: '1', title: 'Grocery', category: 'Food', amount: 85.20, time: '10:30 AM', icon: '🍔' },
-    { id: '2', title: 'Taxi', category: 'Transport', amount: 24.50, time: '09:15 AM', icon: '🚕' },
-    { id: '3', title: 'Electric Bill', category: 'Bills', amount: 120.75, time: 'Yesterday', icon: '💡' },
-    { id: '4', title: 'Shopping', category: 'Shopping', amount: 65.90, time: 'Yesterday', icon: '🛍️' },
-  ]
+    {
+      id: "1",
+      title: "Starbucks Coffee",
+      category: "Food",
+      amount: 8.75,
+      time: "10:30 AM",
+      icon: "☕",
+    },
+    {
+      id: "2",
+      title: "Uber Ride",
+      category: "Transport",
+      amount: 22.5,
+      time: "09:15 AM",
+      icon: "🚗",
+    },
+    {
+      id: "3",
+      title: "Whole Foods",
+      category: "Food",
+      amount: 156.8,
+      time: "Yesterday",
+      icon: "🛒",
+    },
+    {
+      id: "4",
+      title: "Apple Music",
+      category: "Bills",
+      amount: 65.9,
+      time: "Yesterday",
+      icon: "📱",
+    },
+  ];
   const categoryData = [
-    { name: 'Food', amount: 1150, percentage: 40, color: '#FF6B6B' },
-    { name: 'Transport', amount: 680, percentage: 24, color: '#4E7FFF' },
-    { name: 'Bills', amount: 520, percentage: 18, color: '#10B981' },
-    { name: 'Shopping', amount: 350, percentage: 12, color: '#FFA500' },
-    { name: 'Others', amount: 147, percentage: 6, color: '#9CA3AF' },
-  ]
+    { name: "Food", amount: 1150, percentage: 40, color: "#FF6B6B" },
+    { name: "Transport", amount: 680, percentage: 24, color: "#4E7FFF" },
+    { name: "Bills", amount: 520, percentage: 18, color: "#10B981" },
+    { name: "Shopping", amount: 350, percentage: 12, color: "#FFA500" },
+    { name: "Others", amount: 147, percentage: 6, color: "#9CA3AF" },
+  ];
 
-  const totalSpent = 2847
-  const budget = 3500
-  const remaining = 653
-  const percentageUsed = 81.3
-  const daysLeft = 9
+  const totalSpent = 2847;
+  const budget = 3500;
+  const remaining = 653;
+  const percentageUsed = 81.3;
+  const daysLeft = 9;
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.greeting}>Hello, <Text style={styles.name}>Sarah!</Text> 👋</Text>
+          <Text style={styles.greeting}>
+            Hello, <Text style={styles.name}>Sarah!</Text> 👋
+          </Text>
           <Text style={styles.subtitle}>Track your expenses wisely</Text>
         </View>
         <TouchableOpacity style={styles.addButton}>
@@ -48,32 +86,36 @@ const HomePage = () => {
 
       {/* Total Spent Card */}
       <LinearGradient
-      colors={["#0707b6", "#995299ff"]} // start → end colors
-         start={{ x: 0, y: 0 }}           // Top Left
-      end={{ x: 1, y: 1 }}
+        colors={["#0707b6", "#995299ff"]} // start → end colors
+        start={{ x: 0, y: 0 }} // Top Left
+        end={{ x: 1, y: 1 }}
         locations={[0.5, 1]}
-      style={styles.card}
-    >
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Total Spent This Month</Text>
-        <View style={styles.amountRow}>
-          <Text style={styles.amount}>${totalSpent.toLocaleString()}</Text>
-          <View style={styles.dollarIcon}>
-            <Text style={styles.dollarText}>$</Text>
+        style={styles.card}
+      >
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Total Spent This Month</Text>
+          <View style={styles.amountRow}>
+            <Text style={styles.amount}>${totalSpent.toLocaleString()}</Text>
+            <View style={styles.dollarIcon}>
+              <Text style={styles.dollarText}>$</Text>
+            </View>
+          </View>
+          <View style={styles.budgetRow}>
+            <Text style={styles.budgetText}>
+              Budget: ${budget.toLocaleString()}
+            </Text>
+            <Text style={styles.remainingText}>Remaining: ${remaining}</Text>
+          </View>
+          <View style={styles.progressBarContainer}>
+            <View
+              style={[styles.progressBar, { width: `${percentageUsed}%` }]}
+            />
+          </View>
+          <View style={styles.statsRow}>
+            <Text style={styles.statsText}>{percentageUsed}% used</Text>
+            <Text style={styles.statsText}>{daysLeft} days left</Text>
           </View>
         </View>
-        <View style={styles.budgetRow}>
-          <Text style={styles.budgetText}>Budget: ${budget.toLocaleString()}</Text>
-          <Text style={styles.remainingText}>Remaining: ${remaining}</Text>
-        </View>
-        <View style={styles.progressBarContainer}>
-          <View style={[styles.progressBar, { width: `${percentageUsed}%` }]} />
-        </View>
-        <View style={styles.statsRow}>
-          <Text style={styles.statsText}>{percentageUsed}% used</Text>
-          <Text style={styles.statsText}>{daysLeft} days left</Text>
-        </View>
-      </View>
       </LinearGradient>
       {/* Spending by Category */}
       <View style={styles.categoryCard}>
@@ -91,7 +133,7 @@ const HomePage = () => {
                   key={index}
                   style={[
                     styles.donutSegment,
-                    { backgroundColor: category.color }
+                    { backgroundColor: category.color },
                   ]}
                 />
               ))}
@@ -103,12 +145,19 @@ const HomePage = () => {
             {categoryData.map((category, index) => (
               <View key={index} style={styles.categoryItem}>
                 <View style={styles.categoryLeft}>
-                  <View style={[styles.categoryDot, { backgroundColor: category.color }]} />
+                  <View
+                    style={[
+                      styles.categoryDot,
+                      { backgroundColor: category.color },
+                    ]}
+                  />
                   <Text style={styles.categoryName}>{category.name}</Text>
                 </View>
                 <View style={styles.categoryRight}>
                   <Text style={styles.categoryAmount}>${category.amount}</Text>
-                  <Text style={styles.categoryPercentage}>{category.percentage}%</Text>
+                  <Text style={styles.categoryPercentage}>
+                    {category.percentage}%
+                  </Text>
                 </View>
               </View>
             ))}
@@ -127,67 +176,82 @@ const HomePage = () => {
 
         {recentExpenses.map((expense) => (
           <View key={expense.id} style={styles.transactionCard}>
-            <View style={[styles.transactionIcon, { backgroundColor: getCategoryColor(expense.category) }]}>
+            <View
+              style={[styles.transactionIcon, { backgroundColor: "white" }]}
+            >
               <Text style={styles.emojiIcon}>{expense.icon}</Text>
             </View>
             <View style={styles.transactionInfo}>
               <Text style={styles.transactionTitle}>{expense.title}</Text>
-              <Text style={styles.transactionCategory}>{expense.category} • {expense.time}</Text>
+              <View style={styles.transactionCategoryRow}>
+                <Text style={styles.transactionCategory}>
+                  {expense.category}
+                </Text>
+                • {expense.time}
+              </View>
             </View>
-            <Text style={styles.transactionAmount}>-${expense.amount.toFixed(2)}</Text>
+            <Text style={styles.transactionAmount}>
+              -${expense.amount.toFixed(2)}
+            </Text>
           </View>
         ))}
       </View>
       <View style={styles.analyticsCard}>
         <View style={styles.analyticsPercentage}>
-          <Text style={styles.analyticsHeader}>81.3%</Text>
-          <Text style={styles.analyticsEmoji}>Used</Text>
+          <Text style={styles.icon1}>
+            <FontAwesome6 name="arrow-trend-up" size={17} color="#008812ff" />
+          </Text>
           <Text style={styles.analyticsPercent}>9 days left</Text>
+          <Text style={styles.analyticsHeader,{color:"#008812ff"}}>+81.3%</Text>
+          
         </View>
         <View style={styles.analyticsPercentage}>
-           <Text style={styles.analyticsHeader}>81.3%</Text>
-          <Text style={styles.analyticsEmoji}>Used</Text>
+          <Text style={styles.icon2}>
+            <Entypo name="calendar" size={17} color="#001affff" />
+          </Text>
           <Text style={styles.analyticsPercent}>9 days left</Text>
+          <Text style={styles.analyticsHeader,{color:'#001affff'}}>9 dayz</Text>
+        
         </View>
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: "#F9FAFB",
     paddingBottom: 100,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 20,
     paddingTop: 60,
   },
   greeting: {
     fontSize: 24,
-    fontWeight: '400',
-    color: '#000000',
+    fontWeight: "400",
+    color: "#000000",
   },
   name: {
-    fontWeight: '400',
+    fontWeight: "400",
   },
   subtitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: "#6B7280",
     marginTop: 4,
   },
   addButton: {
     width: 45,
     height: 45,
     borderRadius: 10,
-    backgroundColor: '#0e0eebff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#0707b6',
+    backgroundColor: "#0e0eebff",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#0707b6",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -200,75 +264,74 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   cardTitle: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
     opacity: 0.9,
     marginBottom: 8,
   },
   amountRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
   amount: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 42,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   dollarIcon: {
     width: 48,
     height: 48,
     borderRadius: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   dollarText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 24,
-    fontWeight: '100',
+    fontWeight: "100",
   },
   budgetRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 12,
   },
   budgetText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
     opacity: 0.9,
   },
   remainingText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
     opacity: 0.9,
   },
   progressBarContainer: {
     height: 8,
-    backgroundColor: '#995299ff',
+    backgroundColor: "#995299ff",
     borderRadius: 4,
     marginBottom: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   progressBar: {
-    height: '100%',
-    backgroundColor: '#000000',
-   
+    height: "100%",
+    backgroundColor: "#000000",
   },
   statsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   statsText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 13,
     opacity: 0.9,
   },
   transactionsContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -278,38 +341,54 @@ const styles = StyleSheet.create({
     marginTop: 10,
     margin: 20,
     flex: 1,
+    borderColor: "#E5E7EB",
+    borderWidth: 1,
+  },
+  transactionCategoryRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    fontSize: 12,
+    color: "#8f9196ff",
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#1F2937',
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#1F2937",
   },
   seeAllText: {
-    color: '#4E7FFF',
+    color: "#4E7FFF",
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   transactionCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#F3F4F6',
+    borderBottomColor: "#F3F4F6",
+    backgroundColor: "#fafafaff",
+    paddingHorizontal: 15,
+    borderRadius: 15,
   },
   transactionIcon: {
     width: 50,
     height: 50,
     borderRadius: 15,
-    backgroundColor: '#EFF4FF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#EFF4FF",
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
   },
   emojiIcon: {
     fontSize: 20,
@@ -318,39 +397,43 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   transactionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1F2937',
+    fontSize: 14,
+    fontWeight: "400",
+    color: "#00",
     marginBottom: 3,
   },
   transactionCategory: {
-    fontSize: 13,
-    color: '#9CA3AF',
+    fontSize: 11,
+    color: "#000",
+    borderColor: "#E5E7EB",
+    borderWidth: 1,
+    borderRadius: 7,
+    paddingHorizontal: 6,
   },
   transactionAmount: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#1F2937',
+    fontWeight: "600",
+    color: "#1F2937",
   },
   addTransactionButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 30,
     right: 30,
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#4E7FFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#4E7FFF',
+    backgroundColor: "#4E7FFF",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#4E7FFF",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.4,
     shadowRadius: 15,
     elevation: 10,
   },
   categoryCard: {
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#000',
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -361,55 +444,55 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   categoryHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 20,
   },
   categoryTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#1F2937',
+    fontWeight: "600",
+    color: "#1F2937",
   },
   monthText: {
     fontSize: 14,
-    color: '#6B7280',
+    color: "#6B7280",
   },
   categoryContent: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 20,
   },
   chartContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   donutChart: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    overflow: 'hidden',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    overflow: "hidden",
+    flexDirection: "row",
+    flexWrap: "wrap",
     borderWidth: 20,
-    borderColor: '#F9FAFB',
+    borderColor: "#F9FAFB",
   },
   donutSegment: {
-    width: '20%',
-    height: '100%',
+    width: "20%",
+    height: "100%",
   },
   categoryList: {
     flex: 1,
     gap: 16,
   },
   categoryItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   categoryLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   categoryDot: {
@@ -419,47 +502,59 @@ const styles = StyleSheet.create({
   },
   categoryName: {
     fontSize: 14,
-    color: '#4B5563',
+    color: "#4B5563",
   },
   categoryRight: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   categoryAmount: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#1F2937',
+    fontWeight: "600",
+    color: "#1F2937",
   },
   categoryPercentage: {
     fontSize: 12,
-    color: '#9CA3AF',
+    color: "#9CA3AF",
     marginTop: 2,
   },
   analyticsCard: {
-    flexDirection: 'row',
-    justifyContent:'center',
-    gap:60,
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 20,
+    alignItems: "center",
     marginHorizontal: 20,
     borderRadius: 20,
     padding: 20,
     marginBottom: 20,
   },
   analyticsPercentage: {
-    backgroundColor:"white",
-    shadowColor: '#000',
+    backgroundColor: "white",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 6,
-    borderRadius:10,  
-    padding:20,
-    paddingHorizontal:40,
-    alignItems:'center',
-    justifyContent:'center'
-  }
-    
-  
-  
-})
+    borderRadius: 10,
+    padding: 50,
+    paddingVertical: 30,
+    borderColor: "#E5E7EB",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  analyticsPercent:{
+    paddingVertical:10
+  },
+  icon1: {
+    backgroundColor: "#d1f7d6ff",
+    padding: 10,
+    borderRadius: 15,
+  },
+  icon2: {
+    backgroundColor: "#a2cafdff",
+    padding: 10,
+    borderRadius: 15,
+  },
+});
 
-export default HomePage
+export default HomePage;

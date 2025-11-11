@@ -375,6 +375,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafaff",
     paddingHorizontal: 15,
     borderRadius: 15,
+    marginBottom:12
   },
   transactionIcon: {
     width: 50,

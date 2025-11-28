@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 6,
     paddingHorizontal: 10,
-    backgroundColor: "white",
+    backgroundColor: "#4B5563",
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#E5E7EB",
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontSize: 12,
     marginRight: 5,
-    color: "#4B5563",
+    color: "#000",
   },
 
   card: {
